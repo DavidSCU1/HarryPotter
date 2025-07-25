@@ -4,7 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.DEPLOY_TARGET === 'github' ? '/hogwarts-sorting/' : '/',
+  base: process.env.DEPLOY_TARGET === 'github' ? '/HarryPotter/' : '/HarryPotter/',
   plugins: [
     react({
       babel: {
