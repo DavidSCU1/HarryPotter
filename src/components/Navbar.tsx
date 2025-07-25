@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, User, Wand2, BookOpen, Home } from 'lucide-react';
+import { LogOut, User, Wand2, BookOpen, Home, FileText, Lock } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { getHouseById } from '../types/houses';
 
@@ -34,20 +34,42 @@ const Navbar: React.FC = () => {
               <Home className="w-4 h-4" />
               <span>首页</span>
             </Link>
-            <Link
-              to="/spells"
-              className="flex items-center space-x-1 text-white hover:text-yellow-400 transition-colors"
-            >
-              <Wand2 className="w-4 h-4" />
-              <span>魔法咒语</span>
-            </Link>
-            <Link
-              to="/potions"
-              className="flex items-center space-x-1 text-white hover:text-yellow-400 transition-colors"
-            >
-              <BookOpen className="w-4 h-4" />
-              <span>魔药配方</span>
-            </Link>
+            {isAuthenticated && user?.house ? (
+              <>
+                <Link
+                  to="/spells"
+                  className="flex items-center space-x-1 text-white hover:text-yellow-400 transition-colors"
+                >
+                  <Wand2 className="w-4 h-4" />
+                  <span>魔法咒语</span>
+                </Link>
+                <Link
+                  to="/potions"
+                  className="flex items-center space-x-1 text-white hover:text-yellow-400 transition-colors"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>魔药配方</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center space-x-1 text-gray-400 cursor-not-allowed relative group">
+                  <Lock className="w-4 h-4" />
+                  <span>魔法咒语</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    需要完成分院测试
+                  </div>
+                </div>
+                <div className="flex items-center space-x-1 text-gray-400 cursor-not-allowed relative group">
+                  <Lock className="w-4 h-4" />
+                  <span>魔药配方</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    需要完成分院测试
+                  </div>
+                </div>
+              </>
+            )}
+
             {isAuthenticated && (
               <Link
                 to="/sorting"

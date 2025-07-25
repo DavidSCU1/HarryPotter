@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Wand2, BookOpen, Users, Sparkles } from 'lucide-react';
+import { Wand2, BookOpen, Users, Sparkles, FileText } from 'lucide-react';
 import { getAllHouses } from '../types/houses';
 import { useAuthStore } from '../store/authStore';
 
@@ -14,7 +14,7 @@ const Home: React.FC = () => {
       <div 
         className="relative h-screen flex items-center justify-center"
         style={{
-          backgroundImage: `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hogwarts%20castle%20at%20night%20with%20stars%20magical%20atmosphere%20dark%20blue%20sky&image_size=landscape_16_9')`,
+          backgroundImage: `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hogwarts%20castle%20at%20night%20with%20stars%20and%20magical%20atmosphere%20dark%20fantasy%20style&image_size=landscape_16_9')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -129,6 +129,19 @@ const Home: React.FC = () => {
                 探索神秘的魔药世界，学习各种药剂的制作方法
               </p>
             </Link>
+            
+            {isAuthenticated && (
+              <Link
+                to="/admission-letter"
+                className="group bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 text-center hover:bg-opacity-20 transition-all duration-300 border border-white border-opacity-20"
+              >
+                <FileText className="w-16 h-16 mx-auto mb-4 text-amber-400 group-hover:scale-110 transition-transform" />
+                <h3 className="text-2xl font-bold text-white mb-4">入学通知书</h3>
+                <p className="text-gray-300">
+                  生成您专属的霍格沃茨入学通知书PDF
+                </p>
+              </Link>
+            )}
             <Link
               to={isAuthenticated ? "/profile" : "/register"}
               className="group bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8 text-center hover:bg-opacity-20 transition-all duration-300 border border-white border-opacity-20"

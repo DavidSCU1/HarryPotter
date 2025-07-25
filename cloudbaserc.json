@@ -1,0 +1,18 @@
+{
+  "envId": "请替换为你的腾讯云环境ID",
+  "framework": {
+    "name": "vite",
+    "use": "@cloudbase/framework-plugin-website",
+    "inputs": {
+      "buildCommand": "npm run build",
+      "outputPath": "dist",
+      "cloudPath": "/",
+      "ignore": [
+        ".git",
+        ".gitignore",
+        "node_modules",
+        "src"
+      ]
+    }
+  }
+}

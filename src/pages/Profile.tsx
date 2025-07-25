@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Edit, Calendar, Heart, User, Mail, Wand2, Trophy } from 'lucide-react';
+import { Edit, Calendar, Heart, User, Mail, Wand2, Trophy, FileText } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { getHouseById } from '../types/houses';
 import { toast } from 'sonner';
@@ -262,13 +262,23 @@ const Profile: React.FC = () => {
                         <span>开始分院测试</span>
                       </button>
                     ) : canTakeTest ? (
-                      <button
-                        onClick={() => navigate('/sorting')}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
-                      >
-                        <Wand2 className="w-5 h-5" />
-                        <span>重新分院</span>
-                      </button>
+                      <div className="space-y-3">
+                        <button
+                          onClick={() => navigate('/sorting')}
+                          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+                        >
+                          <Wand2 className="w-5 h-5" />
+                          <span>重新分院</span>
+                        </button>
+                        
+                        <button
+                          onClick={() => navigate('/admission-letter')}
+                          className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+                        >
+                          <FileText className="w-5 h-5" />
+                          <span>生成入学通知书</span>
+                        </button>
+                      </div>
                     ) : (
                       <div className="w-full bg-gray-600 text-white font-bold py-3 px-4 rounded-lg text-center">
                         今日已完成分院测试

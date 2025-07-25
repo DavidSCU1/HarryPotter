@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -9,6 +10,7 @@ import Profile from './pages/Profile';
 import SortingTest from './pages/SortingTest';
 import Spells from './pages/Spells';
 import Potions from './pages/Potions';
+
 
 function App() {
   return (
@@ -21,8 +23,17 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/sorting" element={<SortingTest />} />
-          <Route path="/spells" element={<Spells />} />
-          <Route path="/potions" element={<Potions />} />
+          <Route path="/spells" element={
+            <ProtectedRoute requireHouse={true}>
+              <Spells />
+            </ProtectedRoute>
+          } />
+          <Route path="/potions" element={
+            <ProtectedRoute requireHouse={true}>
+              <Potions />
+            </ProtectedRoute>
+          } />
+
         </Routes>
         <Toaster 
           position="top-right" 
