@@ -1,12 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, Beaker, Clock, Star, BookOpen } from 'lucide-react';
+import { Search, Filter, Beaker, Star, BookOpen, Clock, Flame, Droplets } from 'lucide-react';
 import { POTIONS, getPotionsByType, searchPotions, getPotionTypes, Potion } from '../data/potions';
+import { useHouseTheme } from '../hooks/useHouseTheme';
+import { useAuthStore } from '../store/authStore';
 
 const Potions: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [selectedPotion, setSelectedPotion] = useState<Potion | null>(null);
+  const { currentTheme } = useHouseTheme();
 
   const potionTypes = ['all', ...getPotionTypes()];
   const difficulties = ['all', 'beginner', 'intermediate', 'advanced', 'expert'];
@@ -15,7 +18,7 @@ const Potions: React.FC = () => {
     let potions = searchTerm ? searchPotions(searchTerm) : POTIONS;
     
     if (selectedType !== 'all') {
-      potions = getPotionsByType(selectedType as any).filter(potion => 
+      potions = getPotionsByType(selectedType as 'healing' | 'enhancement' | 'transformation' | 'poison' | 'utility').filter(potion => 
         searchTerm ? potions.includes(potion) : true
       );
     }
@@ -75,6 +78,23 @@ const Potions: React.FC = () => {
     expert: '专家'
   };
 
+  // 获取学院特色魔药背景
+  const getPotionsBackground = () => {
+    const { user } = useAuthStore();
+    if (!user?.house) {
+      return 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=magical%20potions%20laboratory%20dungeon%20with%20bubbling%20cauldrons%20glowing%20bottles%20ancient%20stone%20walls%20mystical%20atmosphere%20dark%20academia%20style&image_size=landscape_16_9\')';
+    }
+    
+    const houseBackgrounds = {
+       gryffindor: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=gryffindor%20potions%20classroom%20with%20golden%20lion%20crest%20warm%20red%20lighting%20magical%20cauldrons%20cozy%20atmosphere&image_size=landscape_16_9\')',
+       slytherin: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=slytherin%20potions%20dungeon%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting%20ancient%20stone%20walls&image_size=landscape_16_9\')',
+       ravenclaw: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ravenclaw%20potions%20tower%20laboratory%20with%20bronze%20eagle%20crest%20scholarly%20blue%20atmosphere%20ancient%20books&image_size=landscape_16_9\')',
+       hufflepuff: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hufflepuff%20potions%20greenhouse%20laboratory%20with%20badger%20crest%20warm%20yellow%20lighting%20herb%20gardens&image_size=landscape_16_9\')'
+    };
+    
+    return houseBackgrounds[user.house] || houseBackgrounds.gryffindor;
+  };
+
   const formatBrewTime = (minutes: number) => {
     if (minutes < 60) {
       return `${minutes}分钟`;
@@ -90,44 +110,53 @@ const Potions: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-teal-900 to-blue-900 py-12 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div 
+      className="min-h-screen py-12 px-4 relative"
+      style={{
+        backgroundImage: getPotionsBackground(),
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60"></div>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center text-white drop-shadow-lg">
             <Beaker className="w-12 h-12 mr-4 text-green-400" />
             魔药配方大全
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl max-w-3xl mx-auto text-gray-200">
             深入斯内普教授的魔药课堂，掌握各种神奇魔药的配制方法
           </p>
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl border border-white border-opacity-20 p-6 mb-8">
+        <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 mb-8 border border-white/10 shadow-xl">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-300" />
               <input
                 type="text"
                 placeholder="搜索魔药名称或效果..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400/50 text-white placeholder-gray-300"
               />
             </div>
             
             {/* Type Filter */}
             <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5" />
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="pl-10 pr-8 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 appearance-none cursor-pointer"
+                className="pl-10 pr-8 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none appearance-none cursor-pointer text-white"
               >
                 {potionTypes.map(type => (
-                  <option key={type} value={type} className="text-gray-900">
+                  <option key={type} value={type} className="text-gray-900 bg-white">
                     {typeLabels[type as keyof typeof typeLabels] || type}
                   </option>
                 ))}
@@ -136,14 +165,14 @@ const Potions: React.FC = () => {
             
             {/* Difficulty Filter */}
             <div className="relative">
-              <Star className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Star className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5" />
               <select
                 value={selectedDifficulty}
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
-                className="pl-10 pr-8 py-3 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500 appearance-none cursor-pointer"
+                className="pl-10 pr-8 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none appearance-none cursor-pointer text-white"
               >
                 {difficulties.map(difficulty => (
-                  <option key={difficulty} value={difficulty} className="text-gray-900">
+                  <option key={difficulty} value={difficulty} className="text-gray-900 bg-white">
                     {difficultyLabels[difficulty as keyof typeof difficultyLabels]}
                   </option>
                 ))}
@@ -160,12 +189,12 @@ const Potions: React.FC = () => {
                 <div
                   key={potion.id}
                   onClick={() => setSelectedPotion(potion)}
-                  className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl border border-white border-opacity-20 p-6 cursor-pointer hover:bg-opacity-20 transition-all duration-300 transform hover:scale-105"
+                  className="bg-white/5 backdrop-blur-xl rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 border border-white/10 shadow-xl hover:shadow-2xl"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white mb-1">{potion.name}</h3>
-                      <div className="flex items-center space-x-2 text-sm text-gray-300">
+                      <h3 className="text-xl font-bold mb-1 text-white drop-shadow-lg">{potion.name}</h3>
+                      <div className="flex items-center space-x-2 text-sm text-gray-200">
                         <Clock className="w-4 h-4" />
                         <span>{formatBrewTime(potion.brewTime)}</span>
                       </div>
@@ -175,7 +204,7 @@ const Potions: React.FC = () => {
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 text-sm mb-4 line-clamp-2">{potion.description}</p>
+                  <p className="text-sm mb-4 line-clamp-2 text-gray-200">{potion.description}</p>
                   
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-1">
@@ -201,9 +230,9 @@ const Potions: React.FC = () => {
             
             {filteredPotions.length === 0 && (
               <div className="text-center py-12">
-                <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-2">未找到相关魔药</h3>
-                <p className="text-gray-400">尝试调整搜索条件或筛选器</p>
+                <BookOpen className="w-16 h-16 mx-auto mb-4 text-white" />
+                <h3 className="text-xl font-semibold mb-2 text-white drop-shadow-lg">未找到相关魔药</h3>
+                <p className="text-gray-200">尝试调整搜索条件或筛选器</p>
               </div>
             )}
           </div>
@@ -212,15 +241,15 @@ const Potions: React.FC = () => {
           <div className="lg:col-span-1">
             <div className="sticky top-8">
               {selectedPotion ? (
-                <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl border border-white border-opacity-20 p-6">
+                <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 shadow-2xl">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h2 className="text-2xl font-bold text-white mb-2">{selectedPotion.name}</h2>
+                      <h2 className="text-2xl font-bold mb-2 text-white drop-shadow-lg">{selectedPotion.name}</h2>
                       <div className="flex items-center space-x-4 mb-2">
                         <div className={`inline-block px-3 py-1 rounded-full text-sm font-semibold text-white ${getTypeColor(selectedPotion.type)}`}>
                           {typeLabels[selectedPotion.type as keyof typeof typeLabels] || selectedPotion.type}
                         </div>
-                        <div className="flex items-center space-x-1 text-gray-300">
+                        <div className="flex items-center space-x-1 text-gray-200">
                           <Clock className="w-4 h-4" />
                           <span className="text-sm">{formatBrewTime(selectedPotion.brewTime)}</span>
                         </div>
@@ -230,7 +259,7 @@ const Potions: React.FC = () => {
                   
                   <div className="space-y-4">
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-2">难度等级</h4>
+                      <h4 className="text-lg font-semibold mb-2 text-white drop-shadow-md">难度等级</h4>
                       <div className="flex items-center space-x-2">
                         <div className="flex items-center space-x-1">
                           {[...Array(4)].map((_, i) => (
@@ -251,21 +280,21 @@ const Potions: React.FC = () => {
                     </div>
                     
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-2">效果</h4>
-                      <p className="text-gray-300">{selectedPotion.effect}</p>
+                      <h4 className="text-lg font-semibold mb-2 text-white drop-shadow-md">效果</h4>
+                      <p className="text-gray-200">{selectedPotion.effect}</p>
                     </div>
                     
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-2">详细描述</h4>
-                      <p className="text-gray-300">{selectedPotion.description}</p>
+                      <h4 className="text-lg font-semibold mb-2 text-white drop-shadow-md">详细描述</h4>
+                      <p className="text-gray-200">{selectedPotion.description}</p>
                     </div>
                     
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-2">所需材料</h4>
-                      <ul className="text-gray-300 space-y-1">
+                      <h4 className="text-lg font-semibold mb-2 text-white drop-shadow-md">所需材料</h4>
+                      <ul className="space-y-1 text-gray-200">
                         {selectedPotion.ingredients.map((ingredient, index) => (
                           <li key={index} className="flex items-start">
-                            <span className="text-green-400 mr-2">•</span>
+                            <span className="mr-2 text-green-400">•</span>
                             {ingredient}
                           </li>
                         ))}
@@ -273,11 +302,11 @@ const Potions: React.FC = () => {
                     </div>
                     
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-2">制作步骤</h4>
-                      <ol className="text-gray-300 space-y-2">
+                      <h4 className="text-lg font-semibold mb-2 text-white drop-shadow-md">制作步骤</h4>
+                      <ol className="space-y-2 text-gray-200">
                         {selectedPotion.instructions.map((instruction, index) => (
                           <li key={index} className="flex items-start">
-                            <span className="text-green-400 mr-2 font-semibold min-w-[1.5rem]">
+                            <span className="mr-2 font-semibold min-w-[1.5rem] text-green-400">
                               {index + 1}.
                             </span>
                             <span>{instruction}</span>
@@ -288,10 +317,10 @@ const Potions: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl border border-white border-opacity-20 p-6 text-center">
-                  <Beaker className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">选择一个魔药</h3>
-                  <p className="text-gray-400">点击左侧的魔药卡片查看详细配方</p>
+                <div className="bg-white/5 backdrop-blur-xl rounded-xl p-6 text-center border border-white/10 shadow-2xl">
+                  <Beaker className="w-16 h-16 mx-auto mb-4 text-green-400" />
+                  <h3 className="text-xl font-semibold mb-2 text-white drop-shadow-lg">选择一个魔药</h3>
+                  <p className="text-gray-200">点击左侧的魔药卡片查看详细配方</p>
                 </div>
               )}
             </div>

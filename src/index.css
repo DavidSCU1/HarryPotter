@@ -11,4 +11,377 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  /* 学院主题变量 */
+  --house-primary: #4c1d95;
+  --house-secondary: #7c3aed;
+  --house-accent: #a855f7;
+  --house-text-primary: #ffffff;
+  --house-text-secondary: #a855f7;
+}
+
+/* 学院主题动画 */
+@keyframes houseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px var(--house-accent));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px var(--house-accent));
+  }
+}
+
+@keyframes housePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes houseShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 格兰芬多主题 */
+.gryffindor {
+  --house-primary: #740001;
+  --house-secondary: #D3A625;
+  --house-accent: #FFC500;
+  --house-text-primary: #ffffff;
+  --house-text-secondary: #FFC500;
+}
+
+.gryffindor .house-glow {
+  animation: houseGlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 197, 0, 0.6));
+}
+
+.gryffindor .house-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 197, 0, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: houseShimmer 3s infinite;
+}
+
+/* 斯莱特林主题 */
+.slytherin {
+  --house-primary: #1a472a;
+  --house-secondary: #2a623d;
+  --house-accent: #5d8a66;
+  --house-text-primary: #ffffff;
+  --house-text-secondary: #5d8a66;
+}
+
+.slytherin .house-glow {
+  animation: houseGlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(93, 138, 102, 0.6));
+}
+
+.slytherin .house-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(93, 138, 102, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: houseShimmer 3s infinite;
+}
+
+/* 拉文克劳主题 */
+.ravenclaw {
+  --house-primary: #0e1a40;
+  --house-secondary: #222f5b;
+  --house-accent: #5bc0de;
+  --house-text-primary: #ffffff;
+  --house-text-secondary: #5bc0de;
+}
+
+.ravenclaw .house-glow {
+  animation: houseGlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(91, 192, 222, 0.6));
+}
+
+.ravenclaw .house-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(91, 192, 222, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: houseShimmer 3s infinite;
+}
+
+/* 赫奇帕奇主题 */
+.hufflepuff {
+  --house-primary: #ecb939;
+  --house-secondary: #f4d03f;
+  --house-accent: #f7dc6f;
+  --house-text-primary: #000000;
+  --house-text-secondary: #8B4513;
+}
+
+.hufflepuff .house-glow {
+  animation: houseGlow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(247, 220, 111, 0.6));
+}
+
+.hufflepuff .house-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(247, 220, 111, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: houseShimmer 3s infinite;
+}
+
+/* 通用学院效果 */
+.house-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.house-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--house-accent),
+    transparent 70%
+  );
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.house-card:hover::before {
+  opacity: 0.1;
+}
+
+.house-text-glow {
+  text-shadow: 0 0 4px rgba(var(--house-accent), 0.4);
+}
+
+.house-border {
+  border-color: var(--house-accent);
+  box-shadow: 0 0 8px rgba(var(--house-accent), 0.15);
+}
+
+.house-button {
+  background: linear-gradient(135deg, var(--house-primary), var(--house-secondary));
+  border: 1px solid var(--house-accent);
+  color: var(--house-text-primary);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.house-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.house-button:hover::before {
+  left: 100%;
+}
+
+.house-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(var(--house-accent), 0.2);
+}
+
+/* 新增动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDelay {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes pulseGentle {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 动画类 */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay {
+  animation: fadeInDelay 2s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-bounce-gentle {
+  animation: bounceGentle 2s infinite;
+}
+
+.animate-pulse-gentle {
+  animation: pulseGentle 2s ease-in-out infinite;
+}
+
+/* 学院主题增强 */
+.house-pulse {
+  animation: housePulse 3s ease-in-out infinite;
+}
+
+.house-glow {
+  animation: houseGlow 4s ease-in-out infinite;
+}
+
+.house-shimmer {
+  animation: houseShimmer 3s infinite;
 }

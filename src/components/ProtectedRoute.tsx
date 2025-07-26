@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { Lock, Home, Wand2 } from 'lucide-react';
 
@@ -30,21 +30,21 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requireHouse 
           </div>
           
           <div className="space-y-4">
-            <a
-              href="/sorting"
+            <Link
+              to="/sorting"
               className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
             >
               <Wand2 className="w-5 h-5" />
               <span>开始分院测试</span>
-            </a>
+            </Link>
             
-            <a
-              href="/"
+            <Link
+              to="/"
               className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
             >
               <Home className="w-5 h-5" />
               <span>返回首页</span>
-            </a>
+            </Link>
           </div>
           
           <div className="mt-6 p-4 bg-blue-500 bg-opacity-20 rounded-lg">

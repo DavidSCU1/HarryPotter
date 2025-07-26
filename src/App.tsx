@@ -10,12 +10,19 @@ import Profile from './pages/Profile';
 import SortingTest from './pages/SortingTest';
 import Spells from './pages/Spells';
 import Potions from './pages/Potions';
-
+import AdmissionLetter from './pages/AdmissionLetter';
+import SchoolIntroduction from './pages/SchoolIntroduction';
+import { useHouseTheme } from './hooks/useHouseTheme';
 
 function App() {
+  const { currentTheme } = useHouseTheme();
+  
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
+      <div className={`min-h-screen ${currentTheme.gradient} relative overflow-hidden`}>
+        {/* 学院主题背景图案 */}
+        <div className={`absolute inset-0 ${currentTheme.pattern} opacity-30`}></div>
+        <div className="absolute inset-0 house-shimmer opacity-20"></div>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -33,7 +40,16 @@ function App() {
               <Potions />
             </ProtectedRoute>
           } />
-
+          <Route path="/admission-letter" element={
+            <ProtectedRoute>
+              <AdmissionLetter />
+            </ProtectedRoute>
+          } />
+          <Route path="/school-introduction" element={
+            <ProtectedRoute>
+              <SchoolIntroduction />
+            </ProtectedRoute>
+          } />
         </Routes>
         <Toaster 
           position="top-right" 
