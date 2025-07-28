@@ -9,14 +9,14 @@ const getSpellsBackground = () => {
   const { user } = useAuthStore();
   if (!user?.house) {
     const prompt = "Hogwarts library interior, magical books floating, ancient spellbooks, mystical atmosphere, warm candlelight, scholarly ambiance, cinematic quality";
-    return `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=landscape_16_9')`;
+    return `https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=landscape_16_9`;
   }
   
   const houseBackgrounds = {
-     gryffindor: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=gryffindor%20spells%20classroom%20with%20golden%20lion%20crest%20warm%20red%20lighting%20magical%20wands%20brave%20atmosphere&image_size=landscape_16_9\')',
-     slytherin: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=slytherin%20spells%20dungeon%20chamber%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting%20ancient%20magic&image_size=landscape_16_9\')',
-     ravenclaw: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ravenclaw%20spells%20tower%20library%20with%20bronze%20eagle%20crest%20scholarly%20blue%20atmosphere%20ancient%20tomes&image_size=landscape_16_9\')',
-     hufflepuff: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hufflepuff%20spells%20common%20room%20with%20badger%20crest%20warm%20yellow%20lighting%20cozy%20magical%20atmosphere&image_size=landscape_16_9\')'
+     gryffindor: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=gryffindor%20spells%20classroom%20with%20golden%20lion%20crest%20warm%20red%20lighting%20magical%20wands%20brave%20atmosphere&image_size=landscape_16_9',
+     slytherin: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=slytherin%20spells%20dungeon%20chamber%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting%20ancient%20magic&image_size=landscape_16_9',
+     ravenclaw: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ravenclaw%20spells%20tower%20library%20with%20bronze%20eagle%20crest%20scholarly%20blue%20atmosphere%20ancient%20tomes&image_size=landscape_16_9',
+     hufflepuff: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hufflepuff%20spells%20common%20room%20with%20badger%20crest%20warm%20yellow%20lighting%20cozy%20magical%20atmosphere&image_size=landscape_16_9'
   };
   
   return houseBackgrounds[user.house] || houseBackgrounds.gryffindor;
@@ -102,7 +102,7 @@ const Spells: React.FC = () => {
     <div 
       className="min-h-screen py-12 px-4 relative"
       style={{
-        backgroundImage: getSpellsBackground(),
+        background: getSpellsBackground(),
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

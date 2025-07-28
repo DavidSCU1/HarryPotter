@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 // 获取分院测试背景图片
 const getSortingBackground = () => {
   const prompt = "Hogwarts Great Hall interior, magical atmosphere, floating candles, house banners, ancient stone architecture, warm golden lighting, mystical ambiance, cinematic quality";
-  return `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=landscape_16_9')`;
+  return `https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=landscape_16_9`;
 };
 
 const SortingTest: React.FC = () => {
@@ -109,7 +109,7 @@ const SortingTest: React.FC = () => {
       <div 
         className="min-h-screen flex items-center justify-center relative"
         style={{
-          backgroundImage: getSortingBackground(),
+          background: getSortingBackground(),
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -137,7 +137,7 @@ const SortingTest: React.FC = () => {
       <div 
         className="min-h-screen flex items-center justify-center py-12 px-4 relative"
         style={{
-          backgroundImage: getSortingBackground(),
+          background: getSortingBackground(),
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -233,7 +233,7 @@ const SortingTest: React.FC = () => {
     <div 
       className={`min-h-screen py-12 px-4 transition-all duration-1000 ease-out relative ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       style={{
-        backgroundImage: getSortingBackground(),
+        background: getSortingBackground(),
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

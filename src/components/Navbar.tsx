@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, User, Wand2, BookOpen, Home, FileText, Lock } from 'lucide-react';
+import { LogOut, User, Wand2, BookOpen, Home, FileText, Lock, Package } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { getHouseById } from '../types/houses';
 import { useHouseTheme } from '../hooks/useHouseTheme';
@@ -59,6 +59,14 @@ const Navbar: React.FC = () => {
                   <BookOpen className="w-4 h-4" />
                   <span>魔药配方</span>
                 </Link>
+                <Link
+                  to="/magical-items"
+                  className="flex items-center space-x-1 transition-colors house-text-glow"
+                  style={{ color: currentTheme.textPrimary }}
+                >
+                  <Package className="w-4 h-4" />
+                  <span>魔法物品</span>
+                </Link>
               </>
             ) : (
               <>
@@ -72,6 +80,13 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center space-x-1 text-gray-400 cursor-not-allowed relative group">
                   <Lock className="w-4 h-4" />
                   <span>魔药配方</span>
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    需要完成分院测试
+                  </div>
+                </div>
+                <div className="flex items-center space-x-1 text-gray-400 cursor-not-allowed relative group">
+                  <Lock className="w-4 h-4" />
+                  <span>魔法物品</span>
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     需要完成分院测试
                   </div>

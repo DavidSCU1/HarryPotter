@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Wand2, BookOpen, Users, Sparkles, FileText } from 'lucide-react';
+import { Wand2, BookOpen, Users, Sparkles, FileText, Package } from 'lucide-react';
 import { getAllHouses } from '../types/houses';
 import { useAuthStore } from '../store/authStore';
 import { useHouseTheme } from '../hooks/useHouseTheme';
@@ -10,9 +10,24 @@ const Home: React.FC = () => {
   const { currentTheme } = useHouseTheme();
   const houses = getAllHouses();
 
-  // 获取霍格沃茨城堡背景图片
-  const getElegantBackground = () => {
-    return `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hogwarts%20castle%20majestic%20gothic%20architecture%20towers%20spires%20magical%20atmosphere%20sunset%20golden%20light%20detailed%20realistic&image_size=landscape_16_9')`;
+  // 获取学院主题背景图片
+  const getHouseBackground = () => {
+    const { user } = useAuthStore();
+    
+    // 如果用户未分院，显示霍格沃茨城堡
+    if (!user?.house) {
+      return 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hogwarts%20castle%20majestic%20gothic%20architecture%20towers%20spires%20magical%20atmosphere%20sunset%20golden%20light%20detailed%20realistic&image_size=landscape_16_9';
+    }
+    
+    // 根据学院显示对应背景
+    const houseBackgrounds = {
+      gryffindor: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=gryffindor%20tower%20interior%20red%20gold%20colors%20lion%20banners%20fireplace%20cozy%20warm%20magical%20atmosphere&image_size=landscape_16_9',
+      slytherin: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=slytherin%20dungeon%20chamber%20green%20silver%20colors%20serpent%20decorations%20mysterious%20elegant%20magical%20atmosphere&image_size=landscape_16_9',
+      ravenclaw: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ravenclaw%20tower%20library%20blue%20bronze%20colors%20eagle%20statue%20books%20starry%20ceiling%20wisdom%20magical%20atmosphere&image_size=landscape_16_9',
+      hufflepuff: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hufflepuff%20common%20room%20yellow%20black%20colors%20badger%20decorations%20plants%20cozy%20friendly%20magical%20atmosphere&image_size=landscape_16_9'
+    };
+    
+    return houseBackgrounds[user.house as keyof typeof houseBackgrounds] || houseBackgrounds.gryffindor;
   };
 
   return (
@@ -23,7 +38,7 @@ const Home: React.FC = () => {
       <div 
         className="relative h-screen flex items-center justify-center"
         style={{
-          backgroundImage: getElegantBackground(),
+          backgroundImage: `url('${getHouseBackground()}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -121,7 +136,7 @@ const Home: React.FC = () => {
           <h2 className="text-4xl font-bold text-center mb-16 text-white drop-shadow-lg">
             探索魔法世界
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Link
               to="/spells"
               className="group bg-white/5 backdrop-blur-xl rounded-xl p-8 text-center hover:scale-105 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-xl"
@@ -146,6 +161,19 @@ const Home: React.FC = () => {
               <h3 className="text-2xl font-bold mb-4 text-white">魔药配方</h3>
               <p className="text-gray-200">
                 探索神秘的魔药世界，学习各种药剂的制作方法
+              </p>
+            </Link>
+            <Link
+              to="/magical-items"
+              className="group bg-white/5 backdrop-blur-xl rounded-xl p-8 text-center hover:scale-105 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-xl"
+              style={{
+                background: `linear-gradient(135deg, ${currentTheme.primary}20, ${currentTheme.secondary}10)`
+              }}
+            >
+              <Package className="w-16 h-16 mx-auto mb-4 group-hover:scale-110 transition-transform text-orange-300" />
+              <h3 className="text-2xl font-bold mb-4 text-white">魔法物品</h3>
+              <p className="text-gray-200">
+                了解各种神奇物品的使用方法和魔法效果
               </p>
             </Link>
             

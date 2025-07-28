@@ -103,7 +103,7 @@ const Register: React.FC = () => {
 
   // 获取优雅的注册背景
   const getRegisterBackground = () => {
-    return `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20hogwarts%20library%20with%20floating%20books%20magical%20atmosphere%20warm%20candlelight&image_size=landscape_16_9')`;
+    return 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20hogwarts%20library%20with%20floating%20books%20magical%20atmosphere%20warm%20candlelight&image_size=landscape_16_9';
   };
 
   return (

@@ -57,21 +57,23 @@ const Profile: React.FC = () => {
 
   // 获取学院主题背景
   const getHouseBackground = () => {
-    if (!userHouse) return '';
+    if (!userHouse) {
+      return 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hogwarts%20castle%20majestic%20gothic%20architecture%20towers%20spires%20magical%20atmosphere%20sunset%20golden%20light%20detailed%20realistic&image_size=landscape_16_9';
+    }
     const houseBackgrounds = {
-      gryffindor: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20gryffindor%20tower%20interior%20with%20golden%20lion%20crest%20warm%20firelight%20cozy%20atmosphere&image_size=landscape_16_9\')',
-      slytherin: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20slytherin%20dungeon%20chamber%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting&image_size=landscape_16_9\')',
-      ravenclaw: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20ravenclaw%20tower%20library%20with%20bronze%20eagle%20crest%20scholarly%20atmosphere&image_size=landscape_16_9\')',
-      hufflepuff: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20hufflepuff%20common%20room%20with%20badger%20crest%20warm%20yellow%20lighting%20cozy%20atmosphere&image_size=landscape_16_9\')'
+      gryffindor: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20gryffindor%20tower%20interior%20with%20golden%20lion%20crest%20warm%20firelight%20cozy%20atmosphere&image_size=landscape_16_9',
+      slytherin: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20slytherin%20dungeon%20chamber%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting&image_size=landscape_16_9',
+      ravenclaw: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20ravenclaw%20tower%20library%20with%20bronze%20eagle%20crest%20scholarly%20atmosphere&image_size=landscape_16_9',
+      hufflepuff: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20hufflepuff%20common%20room%20with%20badger%20crest%20warm%20yellow%20lighting%20cozy%20atmosphere&image_size=landscape_16_9'
     };
-    return houseBackgrounds[userHouse.id] || '';
+    return houseBackgrounds[userHouse.id] || houseBackgrounds.gryffindor;
   };
 
   return (
     <div 
       className="min-h-screen py-12 px-4 relative"
       style={{
-        backgroundImage: getHouseBackground(),
+        background: getHouseBackground(),
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'

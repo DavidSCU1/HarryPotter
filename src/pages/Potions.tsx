@@ -82,14 +82,14 @@ const Potions: React.FC = () => {
   const getPotionsBackground = () => {
     const { user } = useAuthStore();
     if (!user?.house) {
-      return 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=magical%20potions%20laboratory%20dungeon%20with%20bubbling%20cauldrons%20glowing%20bottles%20ancient%20stone%20walls%20mystical%20atmosphere%20dark%20academia%20style&image_size=landscape_16_9\')';
+      return 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=magical%20potions%20laboratory%20dungeon%20with%20bubbling%20cauldrons%20glowing%20bottles%20ancient%20stone%20walls%20mystical%20atmosphere&image_size=landscape_16_9';
     }
     
     const houseBackgrounds = {
-       gryffindor: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=gryffindor%20potions%20classroom%20with%20golden%20lion%20crest%20warm%20red%20lighting%20magical%20cauldrons%20cozy%20atmosphere&image_size=landscape_16_9\')',
-       slytherin: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=slytherin%20potions%20dungeon%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting%20ancient%20stone%20walls&image_size=landscape_16_9\')',
-       ravenclaw: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ravenclaw%20potions%20tower%20laboratory%20with%20bronze%20eagle%20crest%20scholarly%20blue%20atmosphere%20ancient%20books&image_size=landscape_16_9\')',
-       hufflepuff: 'url(\'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hufflepuff%20potions%20greenhouse%20laboratory%20with%20badger%20crest%20warm%20yellow%20lighting%20herb%20gardens&image_size=landscape_16_9\')'
+       gryffindor: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=gryffindor%20potions%20classroom%20with%20golden%20lion%20crest%20warm%20red%20lighting%20magical%20cauldrons%20cozy%20atmosphere&image_size=landscape_16_9',
+       slytherin: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=slytherin%20potions%20dungeon%20with%20silver%20serpent%20crest%20mysterious%20green%20lighting%20ancient%20stone%20walls&image_size=landscape_16_9',
+       ravenclaw: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ravenclaw%20potions%20tower%20laboratory%20with%20bronze%20eagle%20crest%20scholarly%20blue%20atmosphere%20ancient%20books&image_size=landscape_16_9',
+       hufflepuff: 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=hufflepuff%20potions%20greenhouse%20laboratory%20with%20badger%20crest%20warm%20yellow%20lighting%20herb%20gardens&image_size=landscape_16_9'
     };
     
     return houseBackgrounds[user.house] || houseBackgrounds.gryffindor;
@@ -113,7 +113,7 @@ const Potions: React.FC = () => {
     <div 
       className="min-h-screen py-12 px-4 relative"
       style={{
-        backgroundImage: getPotionsBackground(),
+        background: getPotionsBackground(),
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'

@@ -77,7 +77,7 @@ const Login: React.FC = () => {
 
   // 获取优雅的登录背景
   const getLoginBackground = () => {
-    return `url('https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20hogwarts%20great%20hall%20entrance%20with%20floating%20candles%20magical%20atmosphere%20warm%20lighting&image_size=landscape_16_9')`;
+    return 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20hogwarts%20great%20hall%20entrance%20with%20floating%20candles%20magical%20atmosphere%20warm%20lighting&image_size=landscape_16_9';
   };
 
   return (

@@ -12,6 +12,7 @@ import Spells from './pages/Spells';
 import Potions from './pages/Potions';
 import AdmissionLetter from './pages/AdmissionLetter';
 import SchoolIntroduction from './pages/SchoolIntroduction';
+import MagicalItems from './pages/MagicalItems';
 import { useHouseTheme } from './hooks/useHouseTheme';
 
 function App() {
@@ -48,6 +49,11 @@ function App() {
           <Route path="/school-introduction" element={
             <ProtectedRoute>
               <SchoolIntroduction />
+            </ProtectedRoute>
+          } />
+          <Route path="/magical-items" element={
+            <ProtectedRoute requireHouse={true}>
+              <MagicalItems />
             </ProtectedRoute>
           } />
         </Routes>

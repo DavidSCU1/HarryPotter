@@ -111,7 +111,7 @@ const AdmissionLetter: React.FC = () => {
 
   return (
     <div className="min-h-screen py-12 px-4 relative" style={{
-      background: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('${getHouseBackgroundImage()}')`,
+      background: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), ${getHouseBackgroundImage()}`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed'
